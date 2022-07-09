@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { setCurrent } from "../../services/currentApi";
+import { MdSwapCalls } from "react-icons/md";
+import "./Conventer.css";
 
 const Conventer = () => {
   const [currencies, setCurrencies] = useState([]);
@@ -12,6 +14,7 @@ const Conventer = () => {
   useEffect(() => {
     setCurrent().then((arr) => setCurrencies(arr));
   }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "firstInput") {
@@ -53,10 +56,10 @@ const Conventer = () => {
       return;
     } else if (secondCurrency === "UAH") {
       if (secondValue) {
-        const value = fromCurrency.buy * secondValue;
+        const value = secondValue / fromCurrency.buy;
         setFirstValue(value.toFixed(2));
       } else if (firstValue) {
-        const value = fromCurrency.buy * firstValue;
+        const value = firstValue * fromCurrency.buy;
         setSecondValue(value.toFixed(2));
       }
       return;
@@ -70,39 +73,71 @@ const Conventer = () => {
     }
   };
   return (
-    <>
+    <div className="conventer-container">
       <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="firstInput"
-          value={firstValue}
-          onChange={handleChange}
-        ></input>
-        <select name="selectFirst" onChange={handleChange}>
-          <option value="USD" defaultValue>
-            USD
-          </option>
-          <option value="EUR">EUR</option>
-          <option value="UAH">UAH</option>
-        </select>
-        <input
-          type="number"
-          name="secondInput"
-          value={secondValue}
-          onChange={handleChange}
-        ></input>
-        <select name="selectSecond" onChange={handleChange}>
-          <option value="USD" defaultValue>
-            USD
-          </option>
-          <option value="EUR">EUR</option>
-          <option value="UAH">UAH</option>
-        </select>
-        <button type="submit" disabled={result}>
-          Submit
+        <div className="from-input">
+          <select
+            className="select-css"
+            name="selectFirst"
+            value={firstcurrency}
+            onChange={handleChange}
+          >
+            <option value="USD" defaultValue>
+              USD
+            </option>
+            <option value="EUR">EUR</option>
+            <option value="UAH">UAH</option>
+          </select>
+          <div className="text-field text-field_floating-3">
+            <input
+              className="text-field__input"
+              type="number"
+              name="firstInput"
+              value={firstValue}
+              onChange={handleChange}
+            ></input>
+          </div>
+        </div>
+        <button
+          className="swap-button"
+          type="button"
+          onClick={() => {
+            setFirstCurrency(secondCurrency);
+            setSecondCurrency(firstcurrency);
+            setFirstValue("");
+            setSecondValue("");
+          }}
+        >
+          <MdSwapCalls size="40px" fill="green" />
+        </button>
+        <div className="to-input">
+          <select
+            className="select-css"
+            name="selectSecond"
+            value={secondCurrency}
+            onChange={handleChange}
+          >
+            <option value="USD" defaultValue>
+              USD
+            </option>
+            <option value="EUR">EUR</option>
+            <option value="UAH">UAH</option>
+          </select>
+          <div className="text-field text-field_floating-3">
+            <input
+              className="text-field__input"
+              type="number"
+              name="secondInput"
+              value={secondValue}
+              onChange={handleChange}
+            ></input>
+          </div>
+        </div>
+        <button className="submit-button" type="submit" disabled={result}>
+          Exchange
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,31 @@
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.3px);
+  -webkit-backdrop-filter: blur(9.3px);
+}
+
+.currency {
+  display: flex;
+}
+
+.currency-list {
+  list-style: none;
+  display: flex;
+}
+
+.currency-item {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 27px;
+  letter-spacing: 0.04em;
+}
+
+.currency-image {
+  margin: 5px 3px 0 0;
+}

@@ -1,13 +1,13 @@
 import "./App.css";
-import Header from "./components/Header/Header";
+import HeaderCurrency from "./components/Header/HeaderCurrency";
 import Conventer from "./components/Conventer/Conventer";
 
 const App = () => {
   return (
-    <>
-      <Header />
+    <div className="app">
+      <HeaderCurrency />
       <Conventer />
-    </>
+    </div>
   );
 };
 
